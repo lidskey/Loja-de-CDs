@@ -90,7 +90,7 @@ export function main() {
             case 4:
                 console.log("\nAtualizar CD\n");
 
-
+                //atualizar não está funcionando pois Principal só tem uma herança (CDs)
                 console.log("\nDigite o ID do CD:\n");
                 id = readlinesync.questionInt(" ")
 
@@ -120,7 +120,7 @@ export function main() {
 
                 novoCds.deletarProduto(id);
                 
-
+                keyPress()
                 break;
             default:
                 console.log("\nSaindo...\n");
