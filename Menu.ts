@@ -1,21 +1,26 @@
-import { read } from "fs";
 import readlinesync = require("readline-sync")
+import { CdsController } from "./src/controller/CdsController";
+import { CDs } from "./src/model/CDs";
+import { Principal } from "./src/model/Principal";
 
 export function main() {
 
 
-    let  tipoMusical=0, idCD, idGeneroMusical, opcao: number
-    let nomeCD, nomeArtista: string;
+    let artista='', album='', genero='';
+    let colecionador;
+    let tipo = 0, tipoMusical = 0, opcao, id = 0;
     
     
-    const listacds = ['Greener grass', 'Flower shower', 'Blinded by fame']
-    
+
+    const novoCds: CdsController = new CdsController();
+
+    new CDs(novoCds.gerarId(),'maria','flowers', 'pop', true)
 
 
     while (true) {
         
         console.log("                                                     ");
-        console.log("                LOJA DE CDS LILIKA                   ");
+        console.log("      SEJA BEM VINDE À LOJA DE CDS LILIKA            ");
         console.log("                                                     ");
         console.log("****************************************************");
         console.log("                                                     ");
@@ -45,104 +50,75 @@ export function main() {
             case 1:
 
                 console.log("\nListar todos os CDs ");
-                console.log(listacds)
+                novoCds.listarCDs();
+
                 break;
             
             case 2:
-                console.log("\nBuscar o CD por ID: ");        
-                console.log(idCD)
+                console.log("\nListar por ID: ");   
+                id = readlinesync.questionInt(``)
+                novoCds.gerarId();
                  
 
-                switch (tipoMusical) {
-                    case 1:
-
-                        console.log("\nOpera: ");
-                                           
-
-                                            
-
-                        break;
-
-                    case 2:
-
-                        console.log("\nSertanejo");
-                        
-
-                        
-
-                        break;
-                    
-                    case 3:
-
-                        console.log("Musica Pop");
-                        
-                        
-
-                        break;
-                    
-                    case 4:
-                        console.log("Axé");
-                        
-                        
-
-                        break;
-                        
-                }
-
+                keyPress()
                 break;
 
             case 3:
-                console.log("\nCadastrar CD")
+                console.log("\nCadastrar CD\n")
                 
-                console.log("Digite o ID do CD:");
-                idCD = readlinesync.questionInt(" ")
-                console.log("Digite o Gênero Musical do CD: ");
-                idGeneroMusical = readlinesync.question(``);
-                console.log("Digite o Nome do Artista: ");
-                nomeArtista = readlinesync.question(``);
-                console.log("Digite o nome do CD: ");
-                nomeCD = readlinesync.question(``);
+                
+                console.log("\nDigite o Nome do Artista: \n");
+                artista = readlinesync.question();
 
-                console.log("CD cadastrado com sucesso!")
+                console.log("\nDigite o nome do Album: \n");
+                album = readlinesync.question();
+                console.log("\nDigite o Gênero Musical do CD: \n");
+                genero = readlinesync.question();
+                console.log("\nÉ item de colecionador? Y/N\n")
+                colecionador = readlinesync.keyInYNStrict();
+                console.log(`${colecionador}`)
+                
+                novoCds.cadastrarProduto(new CDs(novoCds.gerarId(), artista, album, genero, colecionador));
+
+                console.log("\nCD cadastrado com sucesso!\n")
                 
 
 
-                
+                keyPress()
                 break;
 
             case 4:
                 console.log("\nAtualizar CD\n");
 
-                console.log("Digite o ID do CD:");
-                idCD = readlinesync.questionInt(" ")
-                console.log("Digite o Gênero Musical do CD: ");
-                idGeneroMusical = readlinesync.question(``);
-                console.log("Digite o Nome do Artista: ");
-                nomeArtista = readlinesync.question(``);
-                console.log("Digite o nome do CD: ");
-                idCD = readlinesync.question(``);
-                
-                console.log("CD atualizado com sucesso!")
-                 
+
+                console.log("\nDigite o ID do CD:\n");
+                id = readlinesync.questionInt(" ")
+
+                console.log("\nDigite o Nome do Artista: \n");
+                artista = readlinesync.question();
+
+                console.log("\nDigite o nome do Album: \n");
+                album = readlinesync.question();
+                console.log("\nDigite o Gênero Musical do CD: \n");
+                genero = readlinesync.question();
+                console.log("\nÉ item de colecionador? Y/N\n")
+                colecionador = readlinesync.keyInYNStrict();
+                console.log(`${colecionador}`)
+
+                novoCds.atualizarProduto(new CDs(novoCds.gerarId(), artista, album, genero, colecionador));
+
+                console.log("CD cadastrado com sucesso!")
 
                 
-
+                keyPress()
                 break;
 
             case 5:
-                console.log("\nAtualizar Dados do CD\n");
-                
-
-                console.log("Digite o o ID do CD:");
-                idCD = readlinesync.questionInt(" ")
-
-
-            case 6:
                 console.log("\nDeletar  CD\n");
+                console.log("\nDigite o ID do CD: \n");               
+                id = readlinesync.questionInt(``);
 
-
-                console.log("Digite o ID do CD:");
-                idCD = readlinesync.questionInt(" ")
+                novoCds.deletarProduto(id);
                 
 
                 break;
@@ -161,11 +137,11 @@ export function main() {
     
 
     export function sobre(): void {
-        console.log("\n*****************************************************");
+        console.log("\n*****************************************************\n");
         console.log("Projeto Desenvolvido por: Liara Cristina");
         console.log("Generation Brasil - liara.santos@genstudents.org");
         console.log("github.com/lidskey");
-        console.log("*****************************************************");
+        console.log("\n*****************************************************\n");
 }
     
 
