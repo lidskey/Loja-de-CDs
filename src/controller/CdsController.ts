@@ -17,11 +17,18 @@ export class CdsController implements ProdutoRepository{
         
     }
 
+    procurarPorId(id: number): void {
+        let buscaId = this.buscarNoArray(id);
 
-    gerarId(): number {
-        return ++this.id;
-        
+        if (buscaId !== null) {
+            buscaId.visualizar();
+        } else {
+            console.log(`\nO CD não foi encontrado!`)
+        }
+
     }
+
+
     cadastrarProduto(cd: Principal): void {
         this.listaCds.push(cd);
         console.log("O CD foi cadastrado com sucesso!");
@@ -46,6 +53,12 @@ export class CdsController implements ProdutoRepository{
         } else {
             console.log(`\nO CD não foi encontrado!`)
         }
+
+    }
+
+
+    gerarId(): number {
+        return ++this.id;
 
     }
 

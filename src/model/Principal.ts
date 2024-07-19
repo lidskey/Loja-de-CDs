@@ -12,7 +12,6 @@ export abstract class Principal{
     
 
 
-
 	constructor(id: number, artista: string, album: string, genero: string) {
 		this._id = id;
 		this._artista = artista;

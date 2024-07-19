@@ -14,7 +14,7 @@ export function main() {
 
     const novoCds: CdsController = new CdsController();
 
-    new CDs(novoCds.gerarId(),'maria','flowers', 'pop', true)
+    novoCds.cadastrarProduto(new CDs(novoCds.gerarId(),'maria','flowers', 'pop', true))
 
 
     while (true) {
@@ -57,7 +57,7 @@ export function main() {
             case 2:
                 console.log("\nListar por ID: ");   
                 id = readlinesync.questionInt(``)
-                novoCds.gerarId();
+                novoCds.procurarPorId(id);
                  
 
                 keyPress()
